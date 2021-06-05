@@ -1,0 +1,20 @@
+div class="question-#{question.id}"
+  h1 = question.title
+  p = question.body
+  - if current_user && current_user.author_of?(question)
+    = link_to 'Edit question', edit_question_path(question), data: { question_id: question.id }, class: 'edit-question-link btn btn-sm btn-outline-warning'
+    = link_to 'Delete question', question_path(question), 
+      method: :delete, data: { confirm: 'Are your sure delete?' }, class: 'btn btn-sm btn-outline-danger'
+
+  .question-form
+    = form_with model: question, class: 'hidden', html: { id: "edit-question-#{question.id}" } do |f|  
+      .form-group
+        = render 'shared/errors', resource: question
+      .form-group
+        = f.label :title
+        = f.text_field :title, id: :question_title, class: "form-control"
+      .form-group
+          = f.label :body
+          = f.text_area :body, id: :question_body, class: "form-control"
+
+      = f.submit 'Save question', class: "btn btn-outline-primary mt-2"

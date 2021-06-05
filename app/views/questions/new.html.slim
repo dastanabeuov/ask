@@ -1,0 +1,16 @@
+h2 New question
+
+= form_with model: @question, local: true do |f|
+  .form-group
+    = render 'shared/errors', resource: @question
+  .form-group
+    = f.label :title
+    = f.text_field :title, id: :question_title, class: "form-control"
+  .form-group
+      = f.label :body
+      = f.text_area :body, id: :question_body, class: "form-control"
+
+  = f.submit 'Create question', class: "btn btn-outline-primary mt-2"
+
+hr
+= link_to 'Back', root_path, class: 'btn btn-sm btn-outline-secondary'

@@ -1,0 +1,11 @@
+h3 Questions
+
+.questions-list
+  - if @questions.any?
+    - @questions.each do |question|
+      = render 'question_item', question: question
+  - else
+    p No questions found(
+
+hr
+= link_to 'Ask', new_question_path, class: 'btn btn-sm btn-outline-success'

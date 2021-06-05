@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :questions, shallow: true do
     resources :answers do
-      patch :set_best, on: :member
+      patch :set_accept, on: :member
     end
   end
 end

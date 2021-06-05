@@ -1,0 +1,12 @@
+.question
+  = render 'question', question: @question
+
+.answers
+  = render @question.answers
+
+.new-answer-form.mt-5
+  h3 Add answer
+  = render 'answers/form'
+
+hr
+= link_to 'Back', root_path, class: 'btn btn-sm btn-outline-secondary'

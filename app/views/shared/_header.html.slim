@@ -1,0 +1,24 @@
+nav class="navbar navbar-expand-lg navbar-light bg-light"
+  a href="#{root_path}"
+    = image_tag 'ask.png', title: "Logo ASK", alt: "Logo ASK", class: "navbar-brand img-fluid rounded-circle", heght: "50", width: "50"
+  button_to class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+    <span class="navbar-toggler-icon"></span>
+  .collapse.navbar-collapse id="navbarSupportedContent"
+    ul.navbar-nav.mr-auto
+    - if user_signed_in?
+      ul.navbar-nav.pull-xs-right
+        li.nav-item.dropdown.ml-2
+          a class="nav-link dropdown-toggle dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            = current_user.email
+            = " "
+            = image_tag 'user.png', title: "User img", alt: "Avatar img", class: "navbar-brand img-fluid rounded-circle", heght: "25", width: "25"
+          .dropleft.dropdown-menu aria-labelledby="navbarDropdown"
+            = link_to t('user.edit_profile'), edit_user_registration_path, class: "dropdown-item"
+        li.nav-item.ml-2
+          = button_to 'Sign out', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, title: "Sign out", alt: "Logout", class: "nav-link btn btn-sm btn-danger text-light"
+    - else
+      ul.navbar-nav.pull-xs-right
+        li.nav-item.ml-2
+          = button_to 'Sign in', new_user_session_path, method: :get, class: "nav-link btn btn-sm btn-warning text-dark"
+        li.nav-item.ml-2
+          = button_to 'Sign up', new_user_registration_path, method: :get, class: "nav-link btn btn-sm btn-success text-light"

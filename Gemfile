@@ -13,10 +13,11 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '4.6.0'
+gem 'font-awesome-rails'
 gem 'jquery-rails'
+gem 'slim-rails'
 gem 'devise-bootstrap-views'
 gem 'devise'
-gem 'responders'
 gem 'rubocop', require: false
 
 group :development, :test do
@@ -37,6 +38,8 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
+  gem 'shoulda-matchers', '~> 4.0'
+  gem 'rails-controller-testing'
 end
 
 group :heroku do

@@ -1,0 +1,20 @@
+hr
+div class="answer-#{answer.id}"
+  - if answer.accept?
+    p class="text-success" The accept answer!
+  p = answer.body
+  - if current_user && current_user.author_of?(answer)
+    .btn-group
+      = link_to 'Edit answer', '#', data: { answer_id: answer.id }, class: 'edit-answer-link btn btn-sm btn-outline-warning'
+      = link_to 'Delete answer', answer, method: :delete, data: { confirm: 'Are your sure delete?' }, class: 'btn btn-sm btn-outline-danger'
+  - if current_user && current_user.author_of?(answer.question)
+    = link_to 'Accept answer', set_accept_answer_path(answer), class: 'set-accept-answer-#{answer.id} btn btn-sm btn-outline-success', data: { answer_id: answer.id }, method: :patch, remote: true
+  - if current_user && current_user.author_of?(answer)
+    = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+      .form-group
+        = render 'shared/errors', resource: answer
+      .form-group
+        = f.label :body
+        = f.text_area :body, class: 'form-control'
+
+      = f.submit 'Save answer', class: 'btn btn-sm btn-outline-primary save'

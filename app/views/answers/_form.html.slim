@@ -1,0 +1,8 @@
+= form_with model: [@question, @answer] do |f|
+  .form-group
+    = render 'shared/errors', resource: @answer
+  .form-group
+    = f.label :body, 'Body'
+    = f.text_area :body, id: :answer_body, class: "form-control"
+
+  = f.submit 'Create answer', class: "btn btn-outline-primary mt-2"

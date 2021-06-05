@@ -2,37 +2,40 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy]
 
   def index
-    respond_with(@questions = Question.all)
+    @questions = Question.all
   end
 
   def show
     @answer = Answer.new
-    respond_with(@question)
   end
 
   def new
-    respond_with(@question = Question.new)
+    @question = Question.new
   end
 
   def edit; end
 
   def update
     @question.update(question_params) if current_user.author_of?(@question)
+    redirect_to @question
+    flash[:notice] = "Question updated!"
   end
 
   def destroy
-    respond_with(@question.destroy) if current_user.author_of?(@question)
+    @question.destroy if current_user.author_of?(@question)
+    flash[:notice] = "Question deleted!"
   end
 
   def create
     @question = current_user.questions.create(question_params)
-    respond_with @question
+    redirect_to @question
+    flash[:notice] = "Question created!"
   end
 
   private
 
   def set_question
-    @question ||= Question.find(params[:id])
+    @question = Question.find(params[:id])
   end
 
   def question_params

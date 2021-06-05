@@ -7,7 +7,7 @@ class Answer < ApplicationRecord
   validates :body, presence: true
 
   def accept?
-    self.best == true
+    self.accept == true
   end
 
   def set_accept

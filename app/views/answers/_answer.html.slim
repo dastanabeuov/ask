@@ -1,20 +1,49 @@
-hr
-div class="answer-#{answer.id}"
+div class="answer-#{answer.id} pl-4"
+
   - if answer.accept?
     p class="text-success" The accept answer!
-  p = answer.body
+    h4.text-success = answer.body
+    p.text-success #{current_user.email} - #{answer.created_at.strftime("%d.%m.%y ")}
+  - else
+    h4 = answer.body
+    p #{current_user.email} - #{answer.created_at.strftime("%d.%m.%y ")}
+  
   - if current_user && current_user.author_of?(answer)
     .btn-group
       = link_to 'Edit answer', '#', data: { answer_id: answer.id }, class: 'edit-answer-link btn btn-sm btn-outline-warning'
       = link_to 'Delete answer', answer, method: :delete, data: { confirm: 'Are your sure delete?' }, class: 'btn btn-sm btn-outline-danger'
-  - if current_user && current_user.author_of?(answer.question)
-    = link_to 'Accept answer', set_accept_answer_path(answer), class: 'set-accept-answer-#{answer.id} btn btn-sm btn-outline-success', data: { answer_id: answer.id }, method: :patch, remote: true
-  - if current_user && current_user.author_of?(answer)
-    = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-      .form-group
-        = render 'shared/errors', resource: answer
-      .form-group
-        = f.label :body
-        = f.text_area :body, class: 'form-control'
 
-      = f.submit 'Save answer', class: 'btn btn-sm btn-outline-primary save'
+  - if current_user && !answer.root?
+    = link_to 'Accept answer', set_accept_answer_path(answer), class: 'set-accept-answer-#{answer.id} btn btn-sm btn-outline-success', data: { answer_id: answer.id }, method: :patch, remote: true
+
+  = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+    .form-group
+      = render 'shared/errors', resource: answer
+    .form-group
+      = f.label :body
+      = f.text_area :body, class: 'form-control'
+
+    = f.submit 'Save answer', class: 'btn btn-sm btn-outline-primary save'
+
+  p
+    = link_to "Reply", new_question_answer_path(answer.question, :parent_id => answer), data: { answer_id: answer.id }, class: 'reply-answer-link'
+
+  = form_with model: [@question, @answer], class: 'hidden', html: { id: "reply-answer-#{answer.id}" } do |f|
+    .form-group
+      = render 'shared/errors', resource: @answer
+    .form-group
+      = f.label :body, 'Body'
+      = f.text_area :body, id: :answer_body, class: "form-control"
+    .form-group
+      = f.select :parent_id, Answer.order(:id).where(id: answer.id).collect {|p| [ truncate(p.body, :length => 7), p.id ] }
+      = f.label :parent_id, class: 'pl-2'
+
+    = f.submit 'Reply answer', class: "btn btn-outline-primary mt-2"
+
+  - if answer.children.present?
+    - answer.children.each do |child|
+      ul.pl-4
+        li.border-warning.border-left
+          = render 'answers/answer', answer: child
+
+hr

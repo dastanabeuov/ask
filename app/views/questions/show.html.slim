@@ -1,12 +1,14 @@
 .question
+  h1 Question
   = render 'question', question: @question
 
 .answers
-  = render @question.answers
+  h3 class='pl-2' Answers
+  = render @question.answers.roots
 
-.new-answer-form.mt-5
+.new-answer-form.border.border-primary.rounded
   h3 Add answer
   = render 'answers/form'
 
 hr
-= link_to 'Back', root_path, class: 'btn btn-sm btn-outline-secondary'
+= link_to 'Back to all questions', root_path, class: 'btn btn-sm btn-outline-secondary'

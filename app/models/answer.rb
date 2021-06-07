@@ -1,9 +1,10 @@
 class Answer < ApplicationRecord
-  default_scope { order(created_at: :asc) }
+  default_scope { order(created_at: :desc) }
 
   belongs_to :user
   belongs_to :question
-
+  has_ancestry
+  
   validates :body, presence: true
 
   def accept?

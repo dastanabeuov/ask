@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 2021_06_01_130800) do
     t.boolean "accept", default: false, null: false
     t.integer "user_id", null: false
     t.integer "question_id", null: false
+    t.string "ancestry"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["ancestry"], name: "index_answers_on_ancestry"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end

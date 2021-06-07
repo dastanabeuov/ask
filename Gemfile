@@ -18,6 +18,7 @@ gem 'jquery-rails'
 gem 'slim-rails'
 gem 'devise-bootstrap-views'
 gem 'devise'
+gem 'ancestry'
 gem 'rubocop', require: false
 
 group :development, :test do

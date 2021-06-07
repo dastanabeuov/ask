@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :set_question, only: %i[create]
-  before_action :set_answer, only: %i[update destroy set_accept]
+  before_action :set_answer, only: %i[show update destroy set_accept]
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -23,7 +23,11 @@ class AnswersController < ApplicationController
   end
 
   def set_accept
-    @answer.set_accept if current_user.author_of?(@answer)
+    @answer.set_accept
+    root = @answer.root
+    first, second = root.body, @answer.body
+    root.update(body: first + ' ' + second)
+    
     redirect_to @answer.question
     flash[:notice] = "Answer accepted!"
   end
@@ -39,6 +43,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body)
+    params.require(:answer).permit(:body, :parent_id)
   end
 end

@@ -5,10 +5,12 @@ class CreateAnswers < ActiveRecord::Migration[5.2]
       t.boolean :accept, default: false, null: false
       t.integer :user_id, null: false, foreign_key: true
       t.integer :question_id, null: false, foreign_key: true
+      t.string  :ancestry
 
       t.timestamps
     end
     add_index :answers, :user_id
     add_index :answers, :question_id
+    add_index :answers, :ancestry
   end
 end

@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = Answer.new
+    @answer = Answer.new(:parent_id => params[:parent_id])
   end
 
   def new

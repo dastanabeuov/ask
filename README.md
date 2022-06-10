@@ -1,5 +1,11 @@
 # ASK
 
+**Hi 👋**
+
+This is an intuitive simple application for Ask 🤗. The tree structure will allow you to answer the answers to the question. Ask an interesting question. Get answers. Indicate the correct answer and save it next to the question + answer.
+
+Let me know if you're interested in discussing 🤔
+
 This simple app from ASK whatever...?
 
 - the participant asks a question
@@ -8,15 +14,13 @@ This simple app from ASK whatever...?
 - the author of the answer accepts the revision
 - the participant reviews the changes to the answer according to the accepted change
 
-* Ruby version - 2.6.3
 
+* Ruby version - 2.6.3
 * Rails 5.2
+* PostgreSQL
 
 * System dependencies
   Keep track of the gems versions if something goes wrong at startup
-
-* Database
-  PostgreSQL
 
 * Database initialization
   db:create && db:migrate
@@ -29,4 +33,4 @@ This simple app from ASK whatever...?
 * Deployment instructions
   See Heroku Rails app deploy
   
-* Demo - https://ask-001.herokuapp.com/
+* Demo - https://ask-001.herokuapp.com/ 👈
